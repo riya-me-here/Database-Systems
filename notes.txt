@@ -156,6 +156,79 @@ Tape Backup          -HIGHER CAPACITY
 
 3) TREE INDEXES
 
+Indexes
+• Index: auxiliary data structure for finding data faster
+• Exactly same principle as for books!
+• Can have multiple indexes for same table
+
+Indexes in Postgres
+• CREATE INDEX <index-name> on <table> (<columns>)
+  Creates index for table using specified search key
+  Refer to index later via <index-name>
+  <columns> is comma-separated column list (key)
+• DROP INDEX <index-name>
+  Delete index with given name
+  
+Merging Index and Data
+• Idea: index stores data instead of references to data
+• This is called a clustered index
+• Can have at most one clustered index per table
+• More efficient as it saves chasing one reference
+• More importantly: collocates data with same key
+
+Handling Updates
+• Index refers to database table
+• If data changes, so must the index!
+• Need to change index in case of inserts/deletes
+• Ideally: want to keep index balanced during updates
+• Not required but can improve efficiency!
+
+B+ Trees
+• One of the most popular index structure
+• E.g., the default index in Postgres
+• Balances tree after insert/delete operations
+• Keeps the tree compact
+• Each node (except root) is at least half full!
+• I.e., number entries between d and 2*d (d is "order")
+
+HASH INDEXES
+
+Hash vs. Tree Indexes
+• Tree index: traverse search tree to find interesting leafs
+• Hash index: evaluate hash function to find buckets
+
+QUERY PROCESSING OVERVIEW
+
+Buffer Manager
+• Decides when to move data between disk and RAM
+• Tries to reduce data movements using heuristics
+• Buffer manager manages "buffer pool"
+• Buffer pool: main memory reserved for DBMS
+• Divided into page-sized slots called "frames"
+• Stores meta-data about each slot
+
+Frame Properties
+• Page ID: which page is currently stored in frame?
+• Allows matching page requests to frames
+• Pin count: how many processes are using a page?
+• Can only evict page if pin count reaches zero
+• Dirty bit: in-memory page deviates from disk version?
+• Must write page to disk before evicting it
+
+Query Processing
+• Input query is parsed (Parser) and simplified (Rewriter)
+• Query optimizer generates optimized execution plan
+• Executing plan (Executor) produces query result
+
+Operators
+• Query plans use fixed set of standard operators
+• Consumes relation(s) and produces one relation
+• Filter operator (sigma symbol): discard rows based on condition
+• Projection operator (pie symbol): discard columns
+• Join operator (⨝): find matching tuple pairs
+
+
+
 
 
 
