@@ -227,6 +227,43 @@ Operators
 • Projection operator (pie symbol): discard columns
 • Join operator (⨝): find matching tuple pairs
 
+GROUPING & AGGREGATION  
+
+Aggregation without groups:
+    - SQL offers Min, Max, Sum, Count, Avg
+    -Scan input and update in-memory aggregate
+        - Can use const amount of memory
+        - Cost of reading input data once
+    - Count distinct requires duplicate elimination    
+
+Aggregation without groups:
+    - Can use hashing: 
+        - Maintain has table of group keys with aggregate
+    - Can use strings:
+        - Sort on group keys aggregate groups consecutively
+    - Can use indexes:
+        - Index key must contain group- by keys
+
+
+datbase transactions -
+
+-> A sequence of updates (or queries) that is connected
+ ->DBMS commands for assigning queries to Transactions
+
+Transaction in Postgres
+- Begin a Transaction with command BEGIN 
+- End a Transaction with command COMMIT
+- Everything in between belongs to Transaction
+
+
+ACID Guarantees
+Most RDBMS gives ACID guarantee for Transaction
+
+  A: Atomicity -(either execut all or nothing)
+  C: Consistency -(enforce all integrity constraints)
+  I: Isolation -(avoid interleaving transactions badly)
+  D: Durability -(ensures that updates are not last)
+
 
 
 
